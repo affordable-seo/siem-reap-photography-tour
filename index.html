@@ -14,7 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Siem Reap photography tours 2027 - private 3 to 5 days photo tour with Laurent Dambies in Siem Reap</title>
     <meta name="description" content="Siem Reap photo tours with  pro photographer resident photographere" />
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Hero image: high-priority preload for LCP -->
+  <link rel="preload" href="/images/siem_reap_photo_tour_temples_11.webp" as="image" type="image/webp" fetchpriority="high">
+
+  <!-- Font Awesome: non-blocking -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Siem Reap Photography Tour (3 to 5 days)" />
   <meta property="og:url" content="https://siem-reap-photography-tour.vercel.app/" />
@@ -22,9 +28,12 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts: non-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 
   <style>
     /* ============================================================
@@ -377,6 +386,32 @@
       text-align: center;
       line-height: 1.7;
       letter-spacing: .04em;
+    }
+    .footer-tagline {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-top: .25rem;
+      color: var(--gold-light);
+      animation: gold-glow 3s ease-in-out infinite;
+    }
+    @keyframes gold-glow {
+      0%,100% {
+        text-shadow:
+          0 0 4px rgba(195,151,45,0),
+          0 0 10px rgba(195,151,45,0);
+        color: var(--gold-light);
+      }
+      50% {
+        text-shadow:
+          0 0 8px rgba(232,192,110,.9),
+          0 0 22px rgba(195,151,45,.7),
+          0 0 40px rgba(195,151,45,.4);
+        color: #f5d98b;
+      }
     }
   </style>
 </head>
@@ -956,7 +991,8 @@
         <i class="fas fa-camera"></i>
       </div>
       <div class="footer-text">
-        © 2026 Angkor Photography Tours<br>Frame • Focus • Click
+        © 2026 Angkor Photography Tours
+        <span class="footer-tagline">Frame • Focus • Click</span>
       </div>
     </div>
   </footer>
