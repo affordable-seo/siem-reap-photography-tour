@@ -237,21 +237,41 @@
     .slideshow-section {
       position: relative;
       width: 100%;
+      /* Robust full-viewport height: fallback → svh → dvh for mobile browsers */
+      height: 100vh;
       height: 100svh;
+      height: 100dvh;
       min-height: 500px;
       overflow: hidden;
       background: var(--dark);
       user-select: none;
+      /* Prevent iOS Safari from collapsing the height */
+      -webkit-overflow-scrolling: touch;
     }
 
     /* Slide stack */
-    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s cubic-bezier(.4,0,.2,1); pointer-events: none; }
+    .slide {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0; /* explicit instead of inset for older Safari */
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity .9s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+      overflow: hidden;
+    }
     .slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
     .slide.prev { opacity: 0; z-index: 1; }
 
     .slide-img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
+      /* Force the image to fill the slide fully on all devices */
+      display: block;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
     }
     .slide.active .slide-img { animation: kenburns 9s ease-out forwards; }
     @keyframes kenburns { from { transform: scale(1.07); } to { transform: scale(1); } }
@@ -326,6 +346,38 @@
     .reveal-delay-2 { transition-delay: .2s; }
     .reveal-delay-3 { transition-delay: .3s; }
     .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(195,151,45,.18);
+      padding: 2rem 1rem;
+    }
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .75rem;
+    }
+    .camera-pulse {
+      font-size: 1.5rem;
+      color: var(--gold);
+      animation: spin-slow 8s linear infinite;
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .footer-text {
+      font-family: var(--font-body);
+      font-size: .8rem;
+      color: rgba(255,255,255,.35);
+      text-align: center;
+      line-height: 1.7;
+      letter-spacing: .04em;
+    }
   </style>
 </head>
 <body>
@@ -388,7 +440,7 @@
             <div class="divider"></div>
             <h2 class="t-h1">An Immersive Photography Expedition</h2>
             <div class="mt-2">
-              <p class="t-lead">Embark on an immersive <strong>3 to 5 days private photography expedition</strong> in Siem Reap, designed to maximize your photographic opportunities. Our journey covers a diverse 60 km radius around the city.</p>
+              <p class="t-lead">Embark on an immersive <a href="https://www.angkorphotographytours.com/siem-reap-photography-tour/" target="_blank" rel="noopener"><strong>3 to 5 days private photography expedition</strong></a> in Siem Reap, designed to maximize your photographic opportunities. Our journey covers a diverse 60 km radius around the city.</p>
               <p class="t-body mt-2" style="color:#5a5048;">The area around Siem Reap has much to offer for photographers with the iconic and lesser-known Angkor temples, the big <strong>Tonle Sap</strong> lake (subject to seasonal conditions), the lush <strong>Cambodian countryside</strong> (best during July–November green season), rice paddies, <strong>colorful monasteries with saffron robe monks</strong>. Complementing these scenic locations are the warm and friendly Cambodian people in local villages, whose genuine smiles and daily lives you'll capture in local food markets, quaint countryside villages, and amidst the ancient stones of Angkor's temples.</p>
               <p class="t-body mt-2" style="color:#5a5048;">Limited to just a few participants, we provide personalized photography guidance throughout, helping you refine both composition and exposure techniques. Our small group size allows for discreet and respectful photography in local markets and monasteries.</p>
             </div>
@@ -723,7 +775,7 @@
                   <ul class="accordion-content">
                     <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>Photography guidance and feedback by <a href="https://www.angkorphotographytours.com/photographer-in-siem-reap/" target="_blank" rel="noopener">Laurent Dambies</a>.</span></li>
                     <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>Air conditioned private car or van with driver.</span></li>
-                    <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><a href="https://www.angkorphotographytours.com/index.html@p=4311.html" target="_blank" rel="noopener">Angkor pass</a> ($62 for three days or $72 for seven days).</span></li>
+                    <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><a href="https://www.angkorphotographytours.com/blog/angkor-wat-tickets/" target="_blank" rel="noopener">Angkor pass</a> ($62 for three days or $72 for seven days).</span></li>
                     <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>Hotel pick-up and drop-off.</span></li>
                     <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>Fresh water and other drinks included.</span></li>
                   </ul>
@@ -888,18 +940,26 @@
             <a href="https://wa.me/85515720655?text=Hi!%20I'm%20interested%20in%20the%20Siem%20Reap%20Photography%20Tour.%20Can%20you%20tell%20me%20more%3F" target="_blank" rel="noopener" class="btn btn--primary">
               <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Chat on WhatsApp
             </a>
-            <a href="https://www.angkorphotographytours.com/index.html@p=21.html" class="btn btn--outline" target="_blank" rel="noopener">
-              <i class="fa-solid fa-star" aria-hidden="true"></i> Read All Testimonials
+            <a href="https://m.me/angkorphotographytours" target="_blank" rel="noopener" class="btn btn--primary">
+              <i class="fa-brands fa-facebook-messenger" aria-hidden="true"></i> Chat on Messenger
             </a>
           </div>
-          <p class="t-small mt-3" style="color:rgba(255,255,255,.3);">
-            © 2026 Angkor Photography Tours · Laurent Dambies · Siem Reap, Cambodia ·
-          </p>
         </div>
       </div>
     </section>
 
   </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="camera-pulse">
+        <i class="fas fa-fan"></i>
+      </div>
+      <div class="footer-text">
+        © 2026 Angkor Photography Tours<br>Frame • Focus • Click
+      </div>
+    </div>
+  </footer>
 
   <!-- WhatsApp float -->
   <a
